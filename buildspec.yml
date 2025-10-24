@@ -12,9 +12,9 @@ phases:
       python: 3.x
     commands:
       - echo "Updating system packages...."
-      - sudo apt -y update
+      - sudo yum -y update
       - echo "Installing Python3 and pip...."
-      - sudo apt install python3 pyhton3-pip -y
+      - sudo yum install python3 pyhton3-pip -y
       - echo "Installing pyhton and dependencies from requirement.txt....."
       - python3 -m pip install --user -r required.txt
 
