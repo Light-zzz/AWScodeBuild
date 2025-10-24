@@ -1,0 +1,41 @@
+version: 0.2
+
+# Optional: Environment variables (can also be set in CodeBuild console)
+# env:
+#   variables:
+#     NODE_ENV: "production"
+#     S3_BUCKET: "my-deployment-bucket"
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.x
+    commands:
+      - echo "Updating system packages...."
+      - sudo apt -y update
+      - echo "Installing Python3 and pip...."
+      - sudo apt install python3 pyhton3-pip -y
+      - echo "Installing pyhton and dependencies from requirement.txt....."
+      - python3 -m pip install --user -r required.txt
+
+  pre_build:
+    commands:
+      - echo "Pre-Build Phase normally used for preparation tasks...."
+
+  build:
+    commands:
+      - echo "Buildphase where the application would be built or run..."
+      - mkdir -p dipesh
+      - zip -r dipesh/flask-app.zip . -x "*.git*"
+
+  post_build:
+    commands:
+      - echo "Post-Build phase cleanup, deployment, or final reporting..."
+      - date
+
+artifacts:
+  files:
+      - dipesh/flask-app.zip
+    # - '**/*'
+  # base-directory: dist
+  discard-paths: yes
